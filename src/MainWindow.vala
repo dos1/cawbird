@@ -238,21 +238,28 @@ public class MainWindow : Gtk.ApplicationWindow {
       cb.account_window_changed (old_user_id, account.id);
 
       if (!Gtk.Settings.get_default ().gtk_shell_shows_app_menu) {
+        debug("GTK shell not showing app menu");
         if (app_menu_button == null) {
+          debug("Creating app menu");
           app_menu_button = new Gtk.MenuButton ();
           app_menu_button.image = new Gtk.Image.from_icon_name ("emblem-system-symbolic", Gtk.IconSize.MENU);
           app_menu_button.get_style_context ().add_class ("image-button");
           app_menu_button.menu_model = cb.app_menu;
           app_menu_button.show_all ();
           headerbar.pack_end (app_menu_button);
-        } else
+        } else {
+          debug("Showing app menu");
           app_menu_button.show ();
+        }
       }
     } else {
+      debug("GTK shell showing app menu");
       /* "Special case" when creating a new account */
       header_box.hide ();
-      if (app_menu_button != null)
+      if (app_menu_button != null) {
+        debug("Hiding app menu");
         app_menu_button.hide ();
+      }
 
       Account acc_;
       if (account == null)
