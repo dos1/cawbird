@@ -719,9 +719,11 @@ cb_utils_init_gui (gint *argc, gchar ***argv)
 //  }
 //#endif
 #ifdef GDK_WINDOWING_X11
+  g_debug("Built with X11 support");
   if (GDK_IS_X11_DISPLAY (display))
   {
-    XInitThreads ();
+    int status = XInitThreads ();
+    g_debug("Initialised X threads with status %d", status);
   }
 #endif
 }
