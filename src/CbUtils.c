@@ -709,9 +709,7 @@ cb_utils_query_users_finish (GAsyncResult  *result,
 void
 cb_utils_init_gui (gint *argc, gchar ***argv)
 {
-  // We appear to need to do this in C rather than Vala as the only way to get the macros
-  gdk_init (argc, argv);
-  GdkDisplay *display = gdk_display_get_default ();
+  // We appear to need to do this in C rather than Vala as the only way to get the "ifdef" macros
 //#ifdef GDK_WINDOWING_WAYLAND
 //  if (GDK_IS_WAYLAND_DISPLAY (display))
 //  {
@@ -720,10 +718,7 @@ cb_utils_init_gui (gint *argc, gchar ***argv)
 //#endif
 #ifdef GDK_WINDOWING_X11
   g_debug("Built with X11 support");
-  if (GDK_IS_X11_DISPLAY (display))
-  {
-    int status = XInitThreads ();
-    g_debug("Initialised X threads with status %d", status);
-  }
+  int status = XInitThreads ();
+  g_debug("Initialised X threads with status %d", status);
 #endif
 }
